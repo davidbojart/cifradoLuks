@@ -1,0 +1,5 @@
+#!/bin/bash
+USUARIO=$USER
+GRUPO=$GROUP
+
+sudo /sbin/cifrarLUKS.sh $USUARIO $GRUPO
