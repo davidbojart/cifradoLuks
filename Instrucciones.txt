@@ -3,7 +3,7 @@
 Encrypt Disk.desktop -- Acceso directo para ejecutar el Script
 Descripción: ENCRYPT DISK UTILITY WITH LUKS
 Comando: '/usr/bin/encryptdisk' 
-Avanced Options: --noresize --vt_sz 122x38 -T "ENCRYPT DISK UTILITY WITH LUKS" konsole --noresize --vt_sz 122x38 -T "ENCRYPT DISK UTILITY WITH LUKS" --schema LightPaper.schema --nomenubar
+Avanced Options: konsole --noresize --vt_sz 122x38 -T "ENCRYPT DISK UTILITY WITH LUKS" --schema LightPaper.schema --nomenubar
 
 ---------------------------------------------------------------------------------------------------------
 
