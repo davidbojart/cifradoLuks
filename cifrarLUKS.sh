@@ -180,7 +180,7 @@ read NUM
 		echo -e "\t#########################################################################################################$def"
 		funcion1 "$MENSAJES_1"
 		
-		echo -e "d\n1\nd\n2\nd\n3\n\nn\np\n1\n\n\nw" | fdisk ${arraydispo3[$NUMDISCO]} 2>/dev/null
+		echo -e "d\n1\nd\n2\nd\n3\n\nn\np\n1\n\n\nw" | fdisk ${arraydispo3[$NUMDISCO]} >/dev/null 2>&1
 		echo -e "$rojo \nType uppercase YES to continue and type your new disk password.$def"
 		cryptsetup --verbose --verify-passphrase luksFormat ${arraydispo[$NUMDISCO]}
 		funcion2 "$MENSAJES_7" "$MENSAJES_5"
