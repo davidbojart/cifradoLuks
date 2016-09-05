@@ -109,7 +109,8 @@ read NUM
 
 #Bucle que crea la tabla que mostrará los dispositivos que tenemos conectados. También almacena en los arrays definidos arriba los datos: MODELO, TAMAÑO, DISPOSITIVO, para usarlos cuando se seleccione el disco a cifrar.
 	while [ $CONTADOR -lt ${#arraydispo[@]} ] ; do
-		MODELO=`udevinfo -a -p /sys/block/${arraydispo2[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # SACA EL MODELO DEL DISCO
+	#	MODELO=`udevinfo -a -p /sys/block/${arraydispo2[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # SACA EL MODELO DEL DISCO en RHEL5
+		MODELO=`udevadm info -a -p /sys/block/${arraydispo2[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # SACA EL MODELO DEL DISCO RHEL6
 		arrayMODELO=("${arrayMODELO[@]}" $MODELO) #array con el MODELO DE LOS DISCOS
 		TAMANO=`fdisk -l  ${arraydispo3[$CONTADOR]}  | grep -i disk | grep -i ${arraydispo3[$CONTADOR]} | awk '{printf $3 $4}'` #SACA EL TAMAÑO DEL DISCO
 		arrayTAMANO=("${arrayTAMANO[@]}" $TAMANO) #array con los TAMAÑOS DE LOS DISCOS
@@ -233,7 +234,8 @@ read NUM
 	declare -a arraydispoLUKS3=($dispoLUKS3)
 #Bucle que crea la tabla que mostrará los dispositivos que tenemos conectados Y QUE ESTAN CIFRADOS. También almacena en los arrays definidos arriba los datos: MODELO, TAMAÑO, DISPOSITIVO, para usarlos cuando se seleccione el disco a cifrar.
 		while [ $CONTADOR -lt ${#arraydispoLUKS[@]} ] ; do
-			MODELO=`udevinfo -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'`	
+			#MODELO=`udevinfo -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # RHEL 5
+			MODELO=`udevadm info -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # RHEL 6
 			arrayMODELO=("${arrayMODELO[@]}" $MODELO) #array con el MODELO DE LOS DISCOS
 			TAMANO=`fdisk -l ${arraydispoLUKS2[$CONTADOR]} | grep -i disk | grep -i ${arraydispoLUKS2[$CONTADOR]} | awk '{printf $3 $4}'`
 			arrayTAMANO=("${arrayTAMANO[@]}" $TAMANO) #array con los TAMAÑOS DE LOS DISCOS
@@ -331,7 +333,8 @@ read NUM
 		
 		MONTADOLUKS=`blkid | grep -i ${arrayMONTADOSUUID[$CONTADOR]} | grep -i /dev/sd | sort | awk '{print $1}' |  sed 's/:/ /g'`
 		arrayMONTADOLUKS=("${arrayMONTADOLUKS[@]}" $MONTADOLUKS)	
-		MODELOMONT=`udevinfo -a -p /sys/block/${arrayMONTADOLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` 
+		#MODELOMONT=`udevinfo -a -p /sys/block/${arrayMONTADOLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # RHEL5
+		MODELOMONT=`udevadm info -a -p /sys/block/${arrayMONTADOLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # RHEL6
 		arrayMODELOMONT=("${arrayMODELOMONT[@]}" $MODELOMONT) #array con el MODELO DE LOS DISCOS
 		TAMANOMONT=`fdisk -l ${arrayMONTADOLUKS2[$CONTADOR]} | grep -i disk | grep -i ${arrayMONTADOLUKS2[$CONTADOR]} | awk '{printf $3 $4}'`
 		arrayTAMANOMONT=("${arrayTAMANOMONT[@]}" $TAMANOMONT) #array con los TAMAÑOS DE LOS DISCOS
@@ -410,7 +413,8 @@ read NUM
 	declare -a arraydispoLUKS3=($dispoLUKS3)
 #Bucle que crea la tabla que mostrará los dispositivos que tenemos conectados Y QUE ESTAN CIFRADOS.. También almacena en los arrays definidos arriba los datos: MODELO, TAMAÑO, DISPOSITIVO, para usarlos cuando se seleccione el disco a cifrar.
 		while [ $CONTADOR -lt ${#arraydispoLUKS[@]} ] ; do
-			MODELO=`udevinfo -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'`	
+			#MODELO=`udevinfo -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # MODELO DEL DISCO EN RHEL5
+			MODELO=`udevadm info -a -p /sys/block/${arraydispoLUKS3[$CONTADOR]} | grep -i model | awk -F '==' '{printf $2}' | sed 's/ /_/g'` # MODELO DEL DISCO EN RHEL5
 			arrayMODELO=("${arrayMODELO[@]}" $MODELO) #array con el MODELO DE LOS DISCOS
 			TAMANO=`fdisk -l ${arraydispoLUKS2[$CONTADOR]} | grep -i disk | grep -i ${arraydispoLUKS2[$CONTADOR]} | awk '{printf $3 $4}'`
 			arrayTAMANO=("${arrayTAMANO[@]}" $TAMANO) #array con los TAMAÑOS DE LOS DISCOS
